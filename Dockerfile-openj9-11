@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-7-amq-broker-710-openshift-rhel8:7.10.0.ER1
+FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-7-amq-broker-710-openshift-openj9-11-rhel8:7.10.10.ER1
 
 USER root
 
@@ -22,11 +22,11 @@ RUN yum install -y python38 python38-jinja2 python38-pyyaml && \
 
 RUN python3 setup.py install
 
-LABEL name="amq-broker-7/amq-broker-710-init-rhel8"
+LABEL name="amq-broker-7/amq-broker-710-init-openj9-11-rhel8"
 LABEL summary="Red Hat AMQ 7.10.0 Init"
 LABEL description="Red Hat AMQ 7.10.0 Init"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
 LABEL version="7.10"
 LABEL amq.broker.version="7.10.0.ER1"
 LABEL io.k8s.display-name="Red Hat AMQ 7.10.0 Init"
-LABEL com.redhat.component="amq-broker-init-rhel8-container"
+LABEL com.redhat.component="amq-broker-init-openj9-11-rhel8-container"
