@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-7-amq-broker-710-openshift-rhel8@sha256:230d8e27533b1e5bed7f6ee4be7c676dbdce7204c4d6f9ec65e93d8659328360
+FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.0
 
 USER root
 
@@ -21,12 +21,3 @@ RUN microdnf install -y python38 python38-jinja2 python38-pyyaml && \
     microdnf clean all && rm -rf /var/cache/yum
 
 RUN python3 setup.py install
-
-LABEL name="amq-broker-7/amq-broker-710-init-rhel8"
-LABEL summary="Red Hat AMQ 7.10.0 Init"
-LABEL description="Red Hat AMQ 7.10.0 Init"
-LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="7.10"
-LABEL amq.broker.version="7.10.0.ER1"
-LABEL io.k8s.display-name="Red Hat AMQ 7.10.0 Init"
-LABEL com.redhat.component="amq-broker-init-rhel8-container"
