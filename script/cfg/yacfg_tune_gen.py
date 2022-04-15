@@ -26,7 +26,7 @@ class LoginModule:
     def generate_specific_tunes(self):
         pass
 
-    def get_dependent_modules(self):
+    def get_dependent_modules(self, for_domain):
         pass
 
 
@@ -265,8 +265,8 @@ class KeycloakLoginModule(LoginModule):
                 props.append(["scope", self.module['configuration']['scope']])
         return props
 
-    def get_dependent_modules(self):
-        if self.module['moduletype'] == 'directAccess':
+    def get_dependent_modules(self, for_domain):
+        if self.module['moduletype'] == 'directAccess' or for_domain == 'broker':
             return [PrincipalConversionLoginModule()]
         return []
 
@@ -311,8 +311,9 @@ class KeycloakLoginModule(LoginModule):
 
 
 class SecurityDomain:
-    def __init__(self, domain):
+    def __init__(self, domain, domain_type):
         self.domain = domain
+        self.domain_type = domain_type
 
     def write_yaml(self, indent, jaas_modules):
         yaml_str = StringIO()
@@ -359,7 +360,7 @@ class SecurityDomain:
                     yaml_str.write(prop[1])
                     yaml_str.write('\n')
             login_module.generate_specific_tunes()
-            dep_modules = login_module.get_dependent_modules()
+            dep_modules = login_module.get_dependent_modules(self.domain_type)
             if dep_modules is not None:
                 for dep_mod in dep_modules:
                     yaml_str.write(indent * 3)
@@ -599,13 +600,13 @@ if __name__ == '__main__':
         securityDomains = []
         if 'brokerdomain' in security['spec']['securitydomains']:
             brokerDomain = security['spec']['securitydomains']['brokerdomain']
-            securityDomains.append(SecurityDomain(brokerDomain))
+            securityDomains.append(SecurityDomain(brokerDomain, 'broker'))
             yacfg_context.set_domain_defined(True)
             yacfg_context.set_broker_domain(brokerDomain['name'])
 
         if 'consoledomain' in security['spec']['securitydomains']:
             consoleDomain = security['spec']['securitydomains']['consoledomain']
-            securityDomains.append(SecurityDomain(consoleDomain))
+            securityDomains.append(SecurityDomain(consoleDomain, 'console'))
             yacfg_context.set_domain_defined(True)
             yacfg_context.set_console_domain_name(consoleDomain['name'])
             yacfg_context.set_console_domain_defined(True)

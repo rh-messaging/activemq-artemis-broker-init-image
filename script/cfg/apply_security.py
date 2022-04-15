@@ -134,7 +134,7 @@ class BaseArtemisXml:
 class ManagementXml(BaseArtemisXml):
     def __init__(self, mgmtxml):
         BaseArtemisXml.__init__(self, mgmtxml)
-        self.namespaces = {'mgmt': "http://activemq.org/schema"}
+        self.namespaces = {'mgmt': "http://activemq.apache.org/schema"}
 
     def merge_connector_from(self, new_connector):
         new_connector_str = StringIO()
