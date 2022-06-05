@@ -132,9 +132,14 @@ class BaseArtemisXml:
 
 
 class ManagementXml(BaseArtemisXml):
-    def __init__(self, mgmtxml):
+    def __init__(self, mgmtxml, is_from_yacfg):
         BaseArtemisXml.__init__(self, mgmtxml)
-        self.namespaces = {'mgmt': "http://activemq.apache.org/schema"}
+        if is_from_yacfg:
+            # yacfg still uses old namespace to parse management.xml
+            # so not to use the new namespce http://activemq.apache.org/schema
+            self.namespaces = {'mgmt': "http://activemq.org/schema"}
+        else:
+            self.namespaces = {'mgmt': "http://activemq.apache.org/schema"}
 
     def merge_connector_from(self, new_connector):
         new_connector_str = StringIO()
@@ -223,7 +228,7 @@ class ManagementXml(BaseArtemisXml):
         default_list = src_mgmt_tree_root.findall('mgmt:authorisation/mgmt:default-access/mgmt:access', self.namespaces)
         return default_list
 
-    def merge_role_access_list_from(self, new_role_access_list):
+    def merge_role_access_list_from(self, new_role_access_list, ns):
         new_role_access_list_str = StringIO()
         new_role_access_list_str.write('<role-access>\n')
         for match in new_role_access_list:
@@ -236,7 +241,7 @@ class ManagementXml(BaseArtemisXml):
                     new_role_access_list_str.write(match.attrib[prop])
                     new_role_access_list_str.write('\" ')
             new_role_access_list_str.write('>\n')
-            new_access_list = match.findall('mgmt:access', self.namespaces)
+            new_access_list = match.findall('mgmt:access', ns)
             for access in new_access_list:
                 new_role_access_list_str.write(self.xml_indent*4)
                 new_role_access_list_str.write('<access ')
@@ -467,8 +472,8 @@ class ConfigContext:
     def apply_management(self):
         src_mgmt_xml = Path(self.src_root).joinpath(MANAGEMENT_XML)
         dst_mgmt_xml = Path(self.dst_root).joinpath(MANAGEMENT_XML)
-        src_mgmt = ManagementXml(src_mgmt_xml.absolute())
-        dst_mgmt = ManagementXml(dst_mgmt_xml.absolute())
+        src_mgmt = ManagementXml(src_mgmt_xml.absolute(), True)
+        dst_mgmt = ManagementXml(dst_mgmt_xml.absolute(), False)
         if self.management_connector_defined():
             dst_mgmt.merge_connector_from(src_mgmt.get_connector())
         if self.management_allowed_list_defined():
@@ -476,7 +481,7 @@ class ConfigContext:
         if self.management_default_list_defined():
             dst_mgmt.merge_default_list_from(src_mgmt.get_default_list())
         if self.management_role_access_list_defined():
-            dst_mgmt.merge_role_access_list_from(src_mgmt.get_role_access_list())
+            dst_mgmt.merge_role_access_list_from(src_mgmt.get_role_access_list(), src_mgmt.namespaces)
 
     def create_extra_resources(self):
         if len(self.extra_resources) > 0:
