@@ -188,7 +188,7 @@ class ManagementXml(BaseArtemisXml):
         new_allowed_list_str.write('</whitelist>')
         with open(self.xml_file, 'rt') as mgmtxml:
             original_xml = mgmtxml.read()
-            new_xml = re.sub(r'<whitelist>[\s\S]*</whitelist>', new_allowed_list_str.getvalue(), original_xml, re.M)
+            new_xml = re.sub(r'<allowlist>[\s\S]*</allowlist>', new_allowed_list_str.getvalue(), original_xml, re.M)
         with open(self.xml_file, 'wt') as mgmtxml:
             mgmtxml.write(new_xml)
 
