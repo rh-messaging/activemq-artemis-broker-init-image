@@ -382,6 +382,16 @@ class ConfigContext:
                     lines.append(line)
         with open(dst_artemis_profile.absolute(), "wt") as artemis_profile:
             artemis_profile.writelines(lines)
+        if self.console_domain_name:
+            dst_artemis_profile = Path(self.dst_root).joinpath(ARTEMIS_PROFILE)
+            lines = []
+            with open(dst_artemis_profile.absolute(), "rt") as artemis_profile:
+                for line in artemis_profile:
+                    if line.find("-Dhawtio.realm=activemq") >= 0:
+                        line = line.replace("-Dhawtio.realm=activemq", "-Dhawtio.realm=" + self.console_domain_name)
+                    lines.append(line)
+            with open(dst_artemis_profile.absolute(), "wt") as artemis_profile:
+                artemis_profile.writelines(lines)
 
     def add_prop_login_module(self, m):
         self.prop_login_modules.append(m)
