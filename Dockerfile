@@ -23,11 +23,11 @@ RUN microdnf install -y python38 python38-jinja2 python38-pyyaml && \
 RUN python3 setup.py install
 
 LABEL name="amq-broker-7/amq-broker-711-init-rhel8"
-LABEL description="Red Hat AMQ 7.11.1 Init"
+LABEL description="Red Hat AMQ 7.11.2 Init"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="7.11.1"
-LABEL summary="Red Hat AMQ 7.11.1 Init"
-LABEL amq.broker.version="7.11.1.CON.1.CR2"
+LABEL version="7.11.2"
+LABEL summary="Red Hat AMQ 7.11.2 Init"
+LABEL amq.broker.version="7.11.2.CON.1.CR1"
 LABEL com.redhat.component="amq-broker-init-rhel8-container"
-LABEL io.k8s.display-name="Red Hat AMQ 7.11.1 Init"
+LABEL io.k8s.display-name="Red Hat AMQ 7.11.2 Init"
 LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
