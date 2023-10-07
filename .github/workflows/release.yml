@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create release tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
