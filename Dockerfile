@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-7-amq-broker-712-openshift-rhel8@sha256:adeaa7a357ebd54dc9e0891432d2baaa71a1a5485bffa90ba887b015b7d70fc7
+FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:4bba8828e72fd7c9d38c22ba1c2a4f7130817a4e7eac8fb63c13e86465a8e1e7
 
 USER root
 
@@ -23,12 +23,7 @@ RUN microdnf install -y python38 python38-jinja2 python38-pyyaml && \
 
 RUN python3 setup.py install
 
-LABEL name="amq-broker-7/amq-broker-712-init-rhel8"
-LABEL description="Red Hat AMQ 7.12.0 Init"
+LABEL name="artemiscloud/activemq-artemis-broker-init"
+LABEL description="ActiveMQ Artemis broker init container image"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="7.12.0"
-LABEL summary="Red Hat AMQ 7.12.0 Init"
-LABEL amq.broker.version="7.12.0.CON.1.SR1"
-LABEL com.redhat.component="amq-broker-init-rhel8-container"
-LABEL io.k8s.display-name="Red Hat AMQ 7.12.0 Init"
-LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
+LABEL version="1.0.22"
