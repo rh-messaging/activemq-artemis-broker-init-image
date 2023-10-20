@@ -771,19 +771,38 @@ class ManagementXml(BaseArtemisXml):
             self.namespaces = {'mgmt': "http://activemq.org/schema"}
         else:
             self.namespaces = {'mgmt': "http://activemq.apache.org/schema"}
+        self.connector_keymap = OrderedDict([
+            ('host', 'connector-host'),
+            ('port', 'connector-port'),
+            ('rmiregistryport', 'rmi-registry-port'),
+            ('jmxrealm', 'jmx-realm'),
+            ('objectname', 'object-name'),
+            ('authenticatortype', 'authenticator-type'),
+            ('secured', 'secured'),
+            ('keystoreprovider', 'key-store-provider'),
+            ('keystoretype', 'key-store-type'),
+            ('keystorepath', 'key-store-path'),
+            ('keystorepassword', 'key-store-password'),
+            ('truststoreprovider', 'trust-store-provider'),
+            ('truststoretype', 'trust-store-type'),
+            ('truststorepath', 'trust-store-path'),
+            ('truststorepassword', 'trust-store-password'),
+            ('passwordcodec', 'password-codec')
+        ])
 
     def merge_connector_from(self, new_connector):
         new_connector_str = StringIO()
         new_connector_str.write('<connector ')
-        for prop in ['connector-host', 'connector-port', 'rmi-registry-port', 'jmx-realm', 'object-name',
-                     'authenticator-type', 'secured', 'key-store-provider', 'key-store-type', 'key-store-path',
-                     'key-store-password', 'trust-store-provider', 'trust-store-type', 'trust-store-path',
-                     'trust-store-password', 'password-codec']:
-            something_written = False
-            if prop in new_connector and new_connector[prop] is not None:
-                new_connector_str.write(prop)
+        something_written = False
+        for prop_key, prop_name in self.connector_keymap.items():
+            prop_value = new_connector.get(prop_key)
+            if prop_value is not None:
+                new_connector_str.write(prop_name)
                 new_connector_str.write('=\"')
-                new_connector_str.write(new_connector[prop])
+                if isinstance(prop_value, str):
+                    new_connector_str.write(prop_value)
+                else:
+                    new_connector_str.write(str(prop_value).lower())
                 new_connector_str.write('\" ')
                 something_written = True
         new_connector_str.write('/>\n')
