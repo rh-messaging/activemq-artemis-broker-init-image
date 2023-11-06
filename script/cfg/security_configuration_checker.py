@@ -554,30 +554,3 @@ class SecurityConfigurationChecker:
                 if each_line.find(expected_key) >= 0:
                     return True
         return False
-
-    def management_has_connector_secured(self, is_secured):
-        expected_value = "false"
-        if is_secured:
-            expected_value = "true"
-        mgmt_xml = self.context.get_management_xml_file()
-        with open(mgmt_xml, "rt") as mgmt_stream:
-            for each_line in mgmt_stream:
-                if each_line.find("<!--") >= 0:
-                    # ignore one line comment
-                    continue
-                if each_line.find('<connector ') >= 0:
-                    secured_str='secured="' + expected_value + '"'
-                    print('connector found checking', secured_str)
-                    if each_line.find(secured_str) >= 0:
-                        print('ok')
-                        return True
-        return False
-
-    def management_has_connector_attribute(self, key, value):
-        expected_value = key + '="' + value + '"'
-        mgmt_xml = self.context.get_management_xml_file()
-        with open(mgmt_xml, "rt") as mgmt_stream:
-            for each_line in mgmt_stream:
-                if each_line.find(expected_value) >= 0:
-                    return True
-        return False

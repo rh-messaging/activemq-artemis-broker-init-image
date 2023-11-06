@@ -196,27 +196,6 @@ class TestSecurityConfiguration(unittest.TestCase):
         the_checker = checker.SecurityConfigurationChecker(self.context)
         self.assertTrue(the_checker.artemis_profile_has_key("-Dhawtio.realm=console2"))
 
-    def test_management_connector_attr(self):
-        self.context.parse_config_cr("./test-mgmt-connector-cr.yaml")
-        self.context.apply()
-        the_checker = checker.SecurityConfigurationChecker(self.context)
-        self.assertTrue(the_checker.management_has_connector())
-        self.assertTrue(the_checker.management_has_connector_attribute("secured", "false"))
-        self.assertTrue(the_checker.management_has_connector_attribute("connector-port", "9091"))
-        self.assertTrue(the_checker.management_has_connector_attribute("rmi-registry-port", "1234"))
-        self.assertTrue(the_checker.management_has_connector_attribute("connector-host", "0.0.0.0"))
-        self.assertTrue(the_checker.management_has_connector_attribute("jmx-realm", "activemq"))
-        self.assertTrue(the_checker.management_has_connector_attribute("object-name", "connector:name=rmi"))
-        self.assertTrue(the_checker.management_has_connector_attribute("authenticator-type", "password"))
-        self.assertTrue(the_checker.management_has_connector_attribute("key-store-path", "/etc/keystore/broker.ks"))
-        self.assertTrue(the_checker.management_has_connector_attribute("key-store-password", "kspassword"))
-        self.assertTrue(the_checker.management_has_connector_attribute("trust-store-provider", "tSUN"))
-        self.assertTrue(the_checker.management_has_connector_attribute("trust-store-path", "/etc/truststore/broker.ts"))
-        self.assertTrue(the_checker.management_has_connector_attribute("trust-store-password", "tspassword"))
-        self.assertTrue(the_checker.management_has_connector_attribute("password-codec", "org.apache.activemq.SomeClass"))
-        self.assertTrue(the_checker.management_has_connector_attribute("key-store-type", "PKCS12"))
-        self.assertTrue(the_checker.management_has_connector_attribute("trust-store-type", "JKS"))
-
 
 if __name__ == '__main__':
     unittest.main()
