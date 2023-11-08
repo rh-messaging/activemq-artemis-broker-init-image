@@ -1,4 +1,4 @@
-FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:4bba8828e72fd7c9d38c22ba1c2a4f7130817a4e7eac8fb63c13e86465a8e1e7
+FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:81590ec33b2f00775d3c6596f610887b670de7c0b89148b09eab7584f5b0b0ec
 
 USER root
 
@@ -26,4 +26,4 @@ RUN python3 setup.py install
 LABEL name="artemiscloud/activemq-artemis-broker-init"
 LABEL description="ActiveMQ Artemis broker init container image"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="1.0.22"
+LABEL version="1.0.23"
