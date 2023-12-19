@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Execute the tests
         run: ./run_test.sh
@@ -40,7 +40,7 @@ jobs:
           sed -i "s~FROM.*~FROM ${BASE_IMAGE}~g" Dockerfile
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
 
       - name: Build the image
         run: |
