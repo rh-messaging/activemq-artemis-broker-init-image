@@ -23,7 +23,12 @@ RUN microdnf install -y python38 python38-jinja2 python38-pyyaml && \
 
 RUN python3 setup.py install
 
-LABEL name="artemiscloud/activemq-artemis-broker-init"
-LABEL description="ActiveMQ Artemis broker init container image"
+LABEL name="amq-broker-7/amq-broker-7x-init-rhel8"
+LABEL description="Red Hat AMQ 7.x.x Init"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="1.0.23"
+LABEL version="7.x.x"
+LABEL summary="Red Hat AMQ 7.x.x Init"
+LABEL amq.broker.version="7.x.x.CON.1.CR1"
+LABEL com.redhat.component="amq-broker-init-rhel8-container"
+LABEL io.k8s.display-name="Red Hat AMQ 7.x.x Init"
+LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
