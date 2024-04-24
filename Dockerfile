@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-8-amq-broker-80-openshift-rhel8@sha256:5c4ad39a331ffa07d020913b68b3f75bc083e67f8e3ee6324660aa31ef5ebddf
+FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-8-amq-broker-80-openshift-rhel8@sha256:99b0f7f02586dd97a4632b3518bc3da9b307698227b66b979b0deab600e86060
 
 USER root
 
