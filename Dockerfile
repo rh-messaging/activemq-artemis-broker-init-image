@@ -1,4 +1,4 @@
-FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:9e1fefc9a94d72a7b5a3f4e2d53ebd23e5ab221df17a5afde42ce973277838f6
+FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:cd9a01cfe791451d12144a418dbe50221c739151ecda1f22ffdbd2d10009fc82
 
 USER root
 
@@ -28,4 +28,4 @@ USER 185
 LABEL name="artemiscloud/activemq-artemis-broker-init"
 LABEL description="ActiveMQ Artemis broker init container image"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="1.0.31"
+LABEL version="1.0.32"
