@@ -1,4 +1,4 @@
-FROM quay.io/artemiscloud/activemq-artemis-broker-kubernetes@sha256:5e768aefade6d18cd65cb1eb5ee233844f9f7e7b52631f93a0982b67d382239d
+FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-8-amq-broker-80-openshift-rhel8@sha256:43a194ba23fcfb05137e1a9f3dbf15adb321b19a55196b47fefc1045815178f4
 
 USER root
 
