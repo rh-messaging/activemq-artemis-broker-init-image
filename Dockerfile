@@ -27,7 +27,7 @@ USER 185
 
 LABEL name="amq-broker-7/amq-broker-714-init-rhel9"
 LABEL description="Red Hat AMQ 7.14.0 Init"
-LABEL maintainer="ArkMQ <info@arkmq.org>"
+LABEL maintainer="Red Hat, Inc."
 LABEL version="7.14.0"
 LABEL summary="Red Hat AMQ 7.14.0 Init"
 LABEL amq.broker.version="7.14.0.CON.1.CR1"
