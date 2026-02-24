@@ -26,11 +26,11 @@ RUN python3 setup.py install
 USER 185
 
 LABEL name="amq-broker-7/amq-broker-713-init-rhel9"
-LABEL description="Red Hat AMQ 7.13.3 Init"
+LABEL description="Red Hat AMQ 7.13.4 Init"
 LABEL maintainer="Howard Gao <hgao@redhat.com>"
-LABEL version="7.13.3"
-LABEL summary="Red Hat AMQ 7.13.3 Init"
-LABEL amq.broker.version="7.13.3.CON.1.CR1"
+LABEL version="7.13.4"
+LABEL summary="Red Hat AMQ 7.13.4 Init"
+LABEL amq.broker.version="7.13.4.CON.1.CR1"
 LABEL com.redhat.component="amq-broker-init-rhel9-container"
-LABEL io.k8s.display-name="Red Hat AMQ 7.13.3 Init"
+LABEL io.k8s.display-name="Red Hat AMQ 7.13.4 Init"
 LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
