@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-8-amq-broker-80-openshift-rhel9@sha256:3abf13c5627a07d47af058401a389823bdc1bd2fe8f5b5739ad9d5ebbd470f34
+FROM quay.io/arkmq-org/activemq-artemis-broker-kubernetes@sha256:f9de3d120d27f216eafe2b77038e742a7c1569bba0970455969620026dde7dfc
 
 USER root
 
@@ -25,12 +25,7 @@ RUN python3 setup.py install
 
 USER 185
 
-LABEL name="amq-broker-8/amq-broker-80-init-rhel9"
-LABEL description="Red Hat AMQ 8.0.0 Init"
-LABEL maintainer="Red Hat, Inc."
-LABEL version="8.0.0"
-LABEL summary="Red Hat AMQ 8.0.0 Init"
-LABEL amq.broker.version="8.0.0.CON.1.SR1"
-LABEL com.redhat.component="amq-broker-init-rhel9-container"
-LABEL io.k8s.display-name="Red Hat AMQ 8.0.0 Init"
-LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
+LABEL name="arkmq-org/activemq-artemis-broker-init"
+LABEL description="ActiveMQ Artemis broker init container image"
+LABEL maintainer="ArkMQ <info@arkmq.org>"
+LABEL version="2.0.12"
