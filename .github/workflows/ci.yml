@@ -4,8 +4,6 @@ env:
   IMAGE_NAME: arkmq-org-broker-init
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
