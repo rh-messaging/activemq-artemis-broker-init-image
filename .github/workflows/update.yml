@@ -53,6 +53,8 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Set up the repo
         run: |
@@ -81,7 +83,7 @@ jobs:
             BASE_IMAGE="${{ inputs.base_image }}"
           fi
           sed -i "s~FROM.*~FROM ${BASE_IMAGE}~g" Dockerfile
-          git commit --all --message "Update base image to ${BASE_IMAGE}" || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update base image to ${BASE_IMAGE}" || echo "nothing to commit"
 
       - name: Update YAML Configurator
         if: ${{ inputs.update_yacfg_version }}
@@ -107,7 +109,7 @@ jobs:
           echo "found tag $YACFG_VER point to commit ref $YACFG_REF}"
 
           sed -i -e "s~ARG REMOTE_SOURCE_REF=.*~ARG REMOTE_SOURCE_REF=${YACFG_REF}~" -e "s~ARG REMOTE_SOURCE_REP=.*~ARG REMOTE_SOURCE_REP=${YACFG_REP}~" Dockerfile
-          git commit --all --message "Update YAML Configurator to ${YACFG_VER}" || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update YAML Configurator to ${YACFG_VER}" || echo "nothing to commit"
 
       - name: Push commits
         run: |
