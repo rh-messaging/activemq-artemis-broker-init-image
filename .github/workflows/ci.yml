@@ -4,9 +4,10 @@ env:
   IMAGE_NAME: arkmq-org-broker-init
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
-    types: [opened, edited, synchronize, reopened]
   workflow_dispatch:
     inputs:
       snapshot:
@@ -19,36 +20,8 @@ on:
         required: false
         default: false
         type: boolean
-      trigger_release:
-        description: 'Trigger release'
-        required: false
-        default: false
-        type: boolean
 
 jobs:
-  validate:
-    name: Validate
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Validate commit messages
-        env:
-          COMMIT_COUNT: ${{ github.event.pull_request.commits }}
-          COMMIT_PATTERN: '^\[(NO-ISSUE|#[0-9]+)\] .+$'
-        run: |
-          git log --format=%s --max-count="$COMMIT_COUNT" --skip=1 | while IFS= read -r COMMIT_MESSAGE; do
-            if [[ ! "$COMMIT_MESSAGE" =~ $COMMIT_PATTERN ]]; then
-              echo "Invalid commit message: '$COMMIT_MESSAGE'"
-              echo "Commit messages must start with '[NO-ISSUE]' or '[#NNN]', followed by a space and a description."
-              exit 1
-            fi
-          done
 
   build:
     name: Build
@@ -89,19 +62,3 @@ jobs:
         run: |
           podman login --username=${{ secrets.QUAY_USERNAME }} --password=${{ secrets.QUAY_PASSWORD }} quay.io
           podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:snapshot
-
-      - name: Trigger release
-        if: ${{ inputs.trigger_release }}
-        uses: actions/github-script@v8
-        with:
-          github-token: ${{ secrets.BOT_TOKEN }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.ref,
-              workflow_id: 'release.yml',
-              inputs: {
-                trigger_children: ${{ inputs.trigger_children }}
-              }
-            });
