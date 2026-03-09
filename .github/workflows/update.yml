@@ -59,8 +59,7 @@ jobs:
       - name: Set up the repo
         run: |
           git config user.name 'arkmq-bot'
-          git config user.email 'bot@arkmq-org.io'
-          git push
+          git config user.email 'bot@arkmq.org'
 
       - name: Update version
         if: ${{ inputs.update_version }}
@@ -84,7 +83,7 @@ jobs:
             BASE_IMAGE="${{ inputs.base_image }}"
           fi
           sed -i "s~FROM.*~FROM ${BASE_IMAGE}~g" Dockerfile
-          git commit --all --message "Update base image to ${BASE_IMAGE}" || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update base image to ${BASE_IMAGE}" || echo "nothing to commit"
 
       - name: Update YAML Configurator
         if: ${{ inputs.update_yacfg_version }}
@@ -110,25 +109,27 @@ jobs:
           echo "found tag $YACFG_VER point to commit ref $YACFG_REF}"
 
           sed -i -e "s~ARG REMOTE_SOURCE_REF=.*~ARG REMOTE_SOURCE_REF=${YACFG_REF}~" -e "s~ARG REMOTE_SOURCE_REP=.*~ARG REMOTE_SOURCE_REP=${YACFG_REP}~" Dockerfile
-          git commit --all --message "Update YAML Configurator to ${YACFG_VER}" || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update YAML Configurator to ${YACFG_VER}" || echo "nothing to commit"
 
       - name: Push commits
         run: |
           git push
 
-      - name: Trigger release
-        if: ${{ inputs.trigger_release != 'none' }}
+      - name: Trigger CI
+        env:
+          TRIGGER_CHILDREN: ${{ inputs.trigger_release == 'all' }}
+          TRIGGER_RELEASE: ${{ inputs.trigger_release != 'none' }}
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
           script: |
-            const trigger_children = (context.payload.inputs.trigger_release === 'all' ? 'true' : 'false')
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'release.yml',
               ref: context.ref,
+              workflow_id: 'ci.yml',
               inputs: {
-                trigger_children: trigger_children
+                trigger_children: process.env.TRIGGER_CHILDREN,
+                trigger_release: process.env.TRIGGER_RELEASE
               }
             });
