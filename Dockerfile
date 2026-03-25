@@ -1,4 +1,4 @@
-FROM quay.io/arkmq-org/arkmq-org-broker-kubernetes@sha256:cfcbdb91612ab0aaffd52d65336dfaaf10cecf98d859d517bd77b918800e049a
+FROM quay.io/arkmq-org/arkmq-org-broker-kubernetes@sha256:bea5fdd7a4dc956d899fa57e747287ad0b48cc02c4b03e8121395a87c6f68313
 
 USER root
 
@@ -28,7 +28,7 @@ USER 185
 LABEL name="arkmq-org/arkmq-org-broker-init"
 LABEL description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
 LABEL maintainer="ArkMQ <info@arkmq.org>"
-LABEL version="3.0.0"
+LABEL version="3.0.1"
 LABEL org.opencontainers.image.title="ArkMQ Broker Init Powered by Apache Artemis"
 LABEL org.opencontainers.image.description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
 LABEL org.opencontainers.image.vendor="ArkMQ"
