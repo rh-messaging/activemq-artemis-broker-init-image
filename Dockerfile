@@ -27,10 +27,15 @@ RUN python3 setup.py install
 # by Kubernetes that are typically owned by UID 0 (root) and GID 0 (root).
 USER 185:0
 
-LABEL name="arkmq-org/arkmq-org-broker-init"
-LABEL description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
-LABEL maintainer="ArkMQ <info@arkmq.org>"
-LABEL version="3.0.2"
-LABEL org.opencontainers.image.title="ArkMQ Broker Init Powered by Apache Artemis"
-LABEL org.opencontainers.image.description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
-LABEL org.opencontainers.image.vendor="ArkMQ"
+LABEL name="amq-broker-7/amq-broker-7x-init-rhel9"
+LABEL description="Red Hat AMQ 7.x.x Init"
+LABEL maintainer="Red Hat, Inc."
+LABEL version="7.x.x"
+LABEL org.opencontainers.image.title="Red Hat AMQ Broker OpenShift container image"
+LABEL org.opencontainers.image.description="Red Hat AMQ Broker Init container image for configuring AMQ Broker in containerized environments"
+LABEL org.opencontainers.image.vendor="Red Hat, Inc."
+LABEL summary="Red Hat AMQ 7.x.x Init"
+LABEL amq.broker.version="7.x.x.CON.1.CR1"
+LABEL com.redhat.component="amq-broker-init-rhel9-container"
+LABEL io.k8s.display-name="Red Hat AMQ 7.x.x Init"
+LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
