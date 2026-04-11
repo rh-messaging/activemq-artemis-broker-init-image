@@ -1,4 +1,4 @@
-FROM quay.io/arkmq-org/arkmq-org-broker-kubernetes@sha256:bea5fdd7a4dc956d899fa57e747287ad0b48cc02c4b03e8121395a87c6f68313
+FROM quay.io/arkmq-org/arkmq-org-broker-kubernetes@sha256:6855d008e0a11b5110395ac321daaf69cfde24e36188c50e2b0291069e5a6234
 
 USER root
 
@@ -23,12 +23,14 @@ RUN microdnf install -y python3 python3-jinja2 python3-pyyaml && \
 
 RUN python3 setup.py install
 
-USER 185
+# The user is in the group 0 to have access to the volumes mounted
+# by Kubernetes that are typically owned by UID 0 (root) and GID 0 (root).
+USER 185:0
 
 LABEL name="arkmq-org/arkmq-org-broker-init"
 LABEL description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
 LABEL maintainer="ArkMQ <info@arkmq.org>"
-LABEL version="3.0.1"
+LABEL version="3.0.2"
 LABEL org.opencontainers.image.title="ArkMQ Broker Init Powered by Apache Artemis"
 LABEL org.opencontainers.image.description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
 LABEL org.opencontainers.image.vendor="ArkMQ"
