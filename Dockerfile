@@ -1,4 +1,4 @@
-FROM registry-proxy.engineering.redhat.com/rh-osbs/amq-broker-8-amq-broker-80-openshift-rhel9@sha256:86f975132df4ff232b976f147dfb67bb81d3cd38a08f29ff62b44774a950b99d
+FROM quay.io/arkmq-org/arkmq-org-broker-kubernetes@sha256:9892cb9e376c74746ca1be5458baa17ff427179f843dce98ec716ccf939fa35b
 
 USER root
 
@@ -27,15 +27,10 @@ RUN python3 setup.py install
 # by Kubernetes that are typically owned by UID 0 (root) and GID 0 (root).
 USER 185:0
 
-LABEL name="amq-broker-8/amq-broker-80-init-rhel9"
-LABEL description="Red Hat AMQ 8.0.0 Init"
-LABEL maintainer="Red Hat, Inc."
-LABEL version="8.0.0"
-LABEL org.opencontainers.image.title="Red Hat AMQ Broker OpenShift container image"
-LABEL org.opencontainers.image.description="Red Hat AMQ Broker Init container image for configuring AMQ Broker in containerized environments"
-LABEL org.opencontainers.image.vendor="Red Hat, Inc."
-LABEL summary="Red Hat AMQ 8.0.0 Init"
-LABEL amq.broker.version="8.0.0.CON.1.SR1"
-LABEL com.redhat.component="amq-broker-init-rhel9-container"
-LABEL io.k8s.display-name="Red Hat AMQ 8.0.0 Init"
-LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
+LABEL name="arkmq-org/arkmq-org-broker-init"
+LABEL description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
+LABEL maintainer="ArkMQ <info@arkmq.org>"
+LABEL version="3.0.4"
+LABEL org.opencontainers.image.title="ArkMQ Broker Init Powered by Apache Artemis"
+LABEL org.opencontainers.image.description="ArkMQ Broker Init is a container image for configuring Apache Artemis broker instances in containerized environments"
+LABEL org.opencontainers.image.vendor="ArkMQ"
