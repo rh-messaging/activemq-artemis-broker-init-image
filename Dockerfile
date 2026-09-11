@@ -27,15 +27,15 @@ RUN python3 setup.py install
 # by Kubernetes that are typically owned by UID 0 (root) and GID 0 (root).
 USER 185:0
 
-LABEL name="amq-broker-7/amq-broker-7x-init-rhel9"
-LABEL description="Red Hat AMQ 7.x.x Init"
+LABEL name="amq-broker-8/amq-broker-80-init-rhel9"
+LABEL description="Red Hat AMQ 8.0.0 Init"
 LABEL maintainer="Red Hat, Inc."
-LABEL version="7.x.x"
+LABEL version="8.0.0"
 LABEL org.opencontainers.image.title="Red Hat AMQ Broker OpenShift container image"
 LABEL org.opencontainers.image.description="Red Hat AMQ Broker Init container image for configuring AMQ Broker in containerized environments"
 LABEL org.opencontainers.image.vendor="Red Hat, Inc."
-LABEL summary="Red Hat AMQ 7.x.x Init"
-LABEL amq.broker.version="7.x.x.CON.1.CR1"
+LABEL summary="Red Hat AMQ 8.0.0 Init"
+LABEL amq.broker.version="8.0.0.CON.1.SR1"
 LABEL com.redhat.component="amq-broker-init-rhel9-container"
-LABEL io.k8s.display-name="Red Hat AMQ 7.x.x Init"
+LABEL io.k8s.display-name="Red Hat AMQ 8.0.0 Init"
 LABEL io.openshift.tags="messaging,amq,java,jboss,xpaas,init"
